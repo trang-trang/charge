@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body>
+    <h1>Shop demo</h1>
+    <h2>Danh sách mặt hàng của shop</h2>
+    <table id="table_items" border="1">
+        <tr>
+            <th width ="50px">ID</th>
+            <th width ="200px">Name</th>
+            <th width ="70px">Price</th>
+        </tr>
+    </table>
+    <br>
+    <button id="btn_add_row">Add new row</button>
+    <button id="btn_remove_row"> Remove row</button>
+    <script>
+    var conter = 1;
+    document.getElementById("btn_add_row").addEventListener("click", function(){
+        var str = document.getElementById("table_items").innerHTML;
+        str +="<tr><td>"+(conter++)+"</td><td></td><td></td></tr>";
+        document.getElementById("table_items").innerHTML = str;
+    });
+    document.getElementById("btn_remove_row").addEventListener("click", function(){
+        var str = document.getElementById("table_items").innerHTML;
+        if(str.lastIndexOf("<tr>")<=16)return;
+        str = str.substring(0,str.lastIndexOf("<tr>"));
+        document.getElementById("table_items").innerHTML = str;
+        counter--;
+    })
+    </script>
+</body>
+</html>

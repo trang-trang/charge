@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        var counter = 1; //biến đếm
+        $("#btn_add_row").click(function(){
+            //thêm đoạn mã html: 1 dòng của bảng
+            $("#table_items").append(
+              "<tr><td>"+(counter++)+"</td><td></td><td></td></tr>"  
+            );
+        });
+        $("#btn_remove_row").click(function(){
+            //xóa thẻ tr cuối cùng được tìm thấy
+            $("tr:last").remove();
+            counter--;
+        });
+    });
+    </script>
+</head>
+<body>
+    <h1>Shop demo</h1>
+    <h2>Danh sách mặt hàng của shop</h2>
+    <table id="table_items" border="1">
+        <tr>
+            <th width ="50px">ID</th>
+            <th width ="200px">Name</th>
+            <th width ="70px">Price</th>
+            <td align="center"><input type="checkbox" id="check_all"></td>
+        </tr>
+        <!--tr#row$*5>td($)+td(Item $)+td.price($30)+td.price($30)+td>input.checkbox[type-"checkbox"]-->
+        <tr id="1">
+            <td>1</td>
+            <td>Mật ong</td>
+            <td class="price">$130</td>
+            <td align="center"><input type="checkbox" class="checkbox"></td>
+        </tr>
+        <tr id="2">
+            <td>2</td>
+            <td>Gạo Lức</td>
+            <td class="price">$230</td>
+            <td align="center"><input type="checkbox" class="checkbox"></td>
+        </tr>
+        <tr id="3">
+            <td>3</td>
+            <td>Cà Phê Trung Nguyên</td>
+            <td class="price">$330</td>
+            <td align="center"><input type="checkbox" class="checkbox"></td>
+        </tr>
+        <tr id="4">
+            <td>4</td>
+            <td>Tiêu Trắng</td>
+            <td class="price">$430</td>
+            <td align="center"><input type="checkbox" class="checkbox"></td>
+        </tr>
+        <tr id="5">
+            <td>5</td>
+            <td>Măng Khô</td>
+            <td class="price">$530</td>
+            <td align="center"><input type="checkbox" class="checkbox"></td>
+        </tr>
+    </table>
+    <br>
+    <p>Tổng số tiền bạn phải trả: $<span id=total>0</span></p>
+    <script>
+    var price_total = 0, price_item, price_str;
+        $(document).ready(function(){
+    $("#check_all").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+        price_total=0;
+        if(this.checked){ //Nếu check_all được check
+            $('input:checkbox').not(this).each(function(){
+                //Lấy giá từng item và cộng dồn
+                price_str=$(this).closest("tr").find(".price").html();
+                price_item=parseInt(price_str.substring(1));
+                price_total += price_item;
+            });
+        }
+        $("#total").text(price_total); //Cập nhật giá
+    });
+        $(".checkbox").change(function(){
+            price_str = $(this).closest("tr").find(".price").html();
+            price_item = parseInt(price_str.substring(1));
+            if(this.checked){
+                price_total+= price_item;
+            } else{
+                price_total-=price_item;
+            }
+            $("#total").text(price_total);
+            });
+    });
+    </script>
+</body>
+</html>
